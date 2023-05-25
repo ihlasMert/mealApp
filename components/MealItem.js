@@ -1,9 +1,19 @@
-import { View, Text, Pressable, Image, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  Pressable,
+  Image,
+  StyleSheet,
+  Platform,
+} from "react-native";
 
 function MealItem({ title, imageUrl, affordability, complexity, duration }) {
   return (
     <View style={styles.mealItem}>
-      <Pressable>
+      <Pressable
+        android_ripple={{ color: "grey" }}
+        style={({ pressed }) => (pressed ? styles.buttonPressed : null)}
+      >
         <View>
           <Image source={{ uri: imageUrl }} style={styles.image} />
           <Text style={styles.title}>{title}</Text>
@@ -23,9 +33,14 @@ export default MealItem;
 const styles = StyleSheet.create({
   mealItem: {
     margin: 16,
-    borderRadius: 8,
-    overflow: "hidden",
+    borderRadius: 18,
+    overflow: Platform.OS === "android" ? "hidden" : "visible",
     backgroundColor: "white",
+    elevation: 5,
+    shadowColor: "red",
+    shadowOpacity: 0.13,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 10,
   },
   image: {
     width: "100%",
@@ -46,5 +61,8 @@ const styles = StyleSheet.create({
   detailItem: {
     marginHorizontal: 6,
     fontSize: 12,
+  },
+  buttonPressed: {
+    opacity: 0.9,
   },
 });
