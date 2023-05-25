@@ -7,14 +7,15 @@ import {
   Platform,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import MealsDetails from "./MealsDetails";
 
 function MealItem({
   id,
   title,
   imageUrl,
+  duration,
   affordability,
   complexity,
-  duration,
 }) {
   const navigation = useNavigation();
   function selectMealItemHandler() {
@@ -34,11 +35,11 @@ function MealItem({
           <Image source={{ uri: imageUrl }} style={styles.image} />
           <Text style={styles.title}>{title}</Text>
         </View>
-        <View style={styles.details}>
-          <Text style={styles.detailItem}>{duration}m</Text>
-          <Text style={styles.detailItem}>{"affordability".toUpperCase()}</Text>
-          <Text style={styles.detailItem}>{"complexity".toUpperCase()}</Text>
-        </View>
+        <MealsDetails
+          duration={duration}
+          affordability={affordability}
+          complexity={complexity}
+        />
       </Pressable>
     </View>
   );
@@ -68,16 +69,7 @@ const styles = StyleSheet.create({
     fontSize: 19,
     margin: 19,
   },
-  details: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: 8,
-  },
-  detailItem: {
-    marginHorizontal: 6,
-    fontSize: 12,
-  },
+
   buttonPressed: {
     opacity: 0.9,
   },
